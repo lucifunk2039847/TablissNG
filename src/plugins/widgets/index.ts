@@ -26,6 +26,7 @@ import since from "./since";
 import stopwatch from "./stopwatch";
 import tallyCounter from "./tallyCounter";
 import time from "./time";
+import timer from "./timer";
 import timeTracker from "./timeTracker";
 import todo from "./todo";
 import topSites from "./topSites";
@@ -57,6 +58,7 @@ export const widgetConfigs = [
   since,
   stopwatch,
   time,
+  timer,
   todo,
   weather,
   workHours,

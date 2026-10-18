@@ -100,6 +100,39 @@ test.describe("Widgets", () => {
     await expect(calculator.locator(".keys")).toHaveCount(0);
   });
 
+  test("timer counts down, pauses and shows the finished message", async ({
+    page,
+  }) => {
+    await addWidget(page, "widget/timer");
+    await closeSettings(page);
+
+    const timer = page.locator(".Timer");
+    await timer.locator(".toggle").click();
+
+    await timer.getByTitle("Hours").fill("0");
+    await timer.getByTitle("Minutes").fill("0");
+    await timer.getByTitle("Seconds").fill("3");
+    await timer.locator('button[title="Start"]').click();
+
+    const remaining = timer.locator(".remaining");
+    await expect(remaining).toHaveText(/^00:0[123]$/);
+
+    await timer.locator('button[title="Pause"]').click();
+    const paused = await remaining.textContent();
+    await page.waitForTimeout(1500);
+    await expect(remaining).toHaveText(paused ?? "");
+
+    await timer.locator('button[title="Start"]').click();
+    await expect(timer.locator(".message")).toHaveText("Time's up!", {
+      timeout: 5000,
+    });
+
+    // The message stays until reset, which restores the entered duration
+    await timer.locator('button[title="Reset"]').click();
+    await expect(timer.locator(".message")).toHaveCount(0);
+    await expect(timer.getByTitle("Seconds")).toHaveValue("3");
+  });
+
   test("removes a widget from settings", async ({ page }) => {
     await addWidget(page, "widget/tallyCounter");
     const fieldset = widgetSettingsFieldset(page, "Tally Counter");
