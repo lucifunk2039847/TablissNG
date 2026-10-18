@@ -31,6 +31,17 @@ const CalculatorSettings: FC<API<Data>> = ({ data = defaultData, setData }) => {
         <FormattedMessage {...messages.showHistory} />
       </label>
 
+      <label>
+        <input
+          type="checkbox"
+          checked={data.startCollapsed}
+          onChange={(event) =>
+            setData({ ...data, startCollapsed: event.target.checked })
+          }
+        />{" "}
+        <FormattedMessage {...messages.startCollapsed} />
+      </label>
+
       {data.showHistory && (
         <label>
           <FormattedMessage {...messages.historyLength} />

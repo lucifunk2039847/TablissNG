@@ -42,7 +42,13 @@ test.describe("Widgets", () => {
     await closeSettings(page);
 
     const stopwatch = page.locator(".Stopwatch");
+    const toggle = stopwatch.locator(".toggle");
     const elapsed = stopwatch.locator(".elapsed");
+
+    // Starts collapsed with no time shown until the stopwatch is used
+    await expect(elapsed).toHaveCount(0);
+    await expect(toggle.locator(".time")).toHaveCount(0);
+    await toggle.click();
     await expect(elapsed).toHaveText("00:00:00");
 
     await stopwatch.locator('button[title="Start"]').click();
@@ -53,6 +59,12 @@ test.describe("Widgets", () => {
     await page.waitForTimeout(1500);
     await expect(elapsed).toHaveText(stopped ?? "");
 
+    // Collapsing keeps the elapsed time visible on the toggle
+    await toggle.click();
+    await expect(elapsed).toHaveCount(0);
+    await expect(toggle.locator(".time")).toHaveText(stopped ?? "");
+
+    await toggle.click();
     await stopwatch.locator('button[title="Reset"]').click();
     await expect(elapsed).toHaveText("00:00:00");
   });
@@ -62,6 +74,9 @@ test.describe("Widgets", () => {
     await closeSettings(page);
 
     const calculator = page.locator(".Calculator");
+    await expect(calculator.locator(".keys")).toHaveCount(0);
+    await calculator.locator(".toggle").click();
+
     const key = (label: string) =>
       calculator.locator(".keys button", { hasText: label }).first();
 
@@ -75,11 +90,14 @@ test.describe("Widgets", () => {
     ]);
 
     // Keyboard input works while focused
-    await calculator.focus();
+    await calculator.locator(".body").focus();
     await page.keyboard.type("9/3");
     await page.keyboard.press("Enter");
     await expect(calculator.locator(".display")).toHaveText("3");
     await expect(calculator.locator(".history .entry")).toHaveCount(2);
+
+    await calculator.locator(".toggle").click();
+    await expect(calculator.locator(".keys")).toHaveCount(0);
   });
 
   test("removes a widget from settings", async ({ page }) => {

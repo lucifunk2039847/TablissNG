@@ -6,6 +6,7 @@ export interface Data {
   startedAt: number | null;
   alwaysShowHours: boolean;
   showReset: boolean;
+  startCollapsed: boolean;
 }
 
 export const defaultData: Data = {
@@ -14,6 +15,7 @@ export const defaultData: Data = {
   startedAt: null,
   alwaysShowHours: true,
   showReset: true,
+  startCollapsed: true,
 };
 
 /** Total elapsed milliseconds at the given time */

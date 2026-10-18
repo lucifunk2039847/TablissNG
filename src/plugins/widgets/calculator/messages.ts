@@ -42,4 +42,20 @@ export const messages = defineMessages({
     defaultMessage: "History length",
     description: "Label for the number of past calculations to keep",
   },
+  startCollapsed: {
+    id: "plugins.calculator.startCollapsed",
+    defaultMessage: "Start collapsed",
+    description:
+      "Checkbox label for showing only the calculator button until it is clicked",
+  },
+  expand: {
+    id: "plugins.calculator.expand",
+    defaultMessage: "Expand",
+    description: "Title of the button that expands the calculator",
+  },
+  collapse: {
+    id: "plugins.calculator.collapse",
+    defaultMessage: "Collapse",
+    description: "Title of the button that collapses the calculator",
+  },
 });

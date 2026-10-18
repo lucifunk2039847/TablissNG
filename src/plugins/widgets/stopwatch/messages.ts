@@ -47,4 +47,20 @@ export const messages = defineMessages({
     defaultMessage: "Reset",
     description: "Title of the button that resets the stopwatch",
   },
+  startCollapsed: {
+    id: "plugins.stopwatch.startCollapsed",
+    defaultMessage: "Start collapsed",
+    description:
+      "Checkbox label for showing only the stopwatch button until it is clicked",
+  },
+  expand: {
+    id: "plugins.stopwatch.expand",
+    defaultMessage: "Expand",
+    description: "Title of the button that expands the stopwatch",
+  },
+  collapse: {
+    id: "plugins.stopwatch.collapse",
+    defaultMessage: "Collapse",
+    description: "Title of the button that collapses the stopwatch",
+  },
 });

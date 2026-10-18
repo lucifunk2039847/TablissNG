@@ -41,6 +41,17 @@ const StopwatchSettings: FC<API<Data>> = ({ data = defaultData, setData }) => {
         />{" "}
         <FormattedMessage {...messages.showReset} />
       </label>
+
+      <label>
+        <input
+          type="checkbox"
+          checked={data.startCollapsed}
+          onChange={(event) =>
+            setData({ ...data, startCollapsed: event.target.checked })
+          }
+        />{" "}
+        <FormattedMessage {...messages.startCollapsed} />
+      </label>
     </div>
   );
 };

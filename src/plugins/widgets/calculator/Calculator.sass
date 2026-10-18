@@ -1,9 +1,24 @@
 .Calculator
   display: flex
   flex-direction: column
+  align-items: center
   gap: 0.5rem
-  width: 14rem
-  outline: none
+
+  .toggle
+    display: inline-flex
+    align-items: center
+    gap: 0.5em
+
+    svg
+      width: 1em
+      height: 1em
+
+  .body
+    display: flex
+    flex-direction: column
+    gap: 0.5rem
+    width: 14rem
+    outline: none
 
   .history
     position: relative
