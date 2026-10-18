@@ -1,0 +1,74 @@
+.Calculator
+  display: flex
+  flex-direction: column
+  gap: 0.5rem
+  width: 14rem
+  outline: none
+
+  .history
+    position: relative
+    font-size: 0.85rem
+    opacity: 0.8
+    text-align: right
+
+    .entry
+      white-space: nowrap
+      overflow: hidden
+      text-overflow: ellipsis
+
+    .clear-history
+      position: absolute
+      top: 0
+      left: 0
+      background: none
+      border: none
+      color: inherit
+      cursor: pointer
+      padding: 0
+      opacity: 0
+      transition: opacity 0.4s
+
+      svg
+        width: 14px
+        height: 14px
+
+    &:hover .clear-history
+      opacity: 1
+
+  .screen
+    text-align: right
+    font-variant-numeric: tabular-nums
+
+    .pending
+      font-size: 0.9rem
+      opacity: 0.8
+      min-height: 1.2em
+      white-space: pre
+
+    .display
+      font-size: 2.2rem
+      font-weight: bold
+      overflow: hidden
+      text-overflow: ellipsis
+
+  .keys
+    display: grid
+    grid-template-columns: repeat(4, 1fr)
+    gap: 0.4rem
+
+    .button
+      padding: 0
+      height: 2.5rem
+      display: flex
+      align-items: center
+      justify-content: center
+      font-size: 1.1rem
+
+      &:active
+        transform: scale(0.95)
+
+      &.wide
+        grid-column: span 2
+
+      &.active
+        filter: brightness(0.85)

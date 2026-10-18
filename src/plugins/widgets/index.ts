@@ -3,6 +3,7 @@
 import binarytime from "./binaryTime";
 import bitcoin from "./bitcoin";
 import bookmarks from "./bookmarks";
+import calculator from "./calculator";
 import countdown from "./countdown";
 import css from "./css";
 import currencyRates from "./currencyRates";
@@ -22,6 +23,7 @@ import palette from "./palette";
 import quote from "./quote";
 import search from "./search";
 import since from "./since";
+import stopwatch from "./stopwatch";
 import tallyCounter from "./tallyCounter";
 import time from "./time";
 import timeTracker from "./timeTracker";
@@ -35,6 +37,7 @@ export const widgetConfigs = [
   // nba,
   binarytime,
   bitcoin,
+  calculator,
   countdown,
   css,
   currencyRates,
@@ -52,6 +55,7 @@ export const widgetConfigs = [
   quote,
   search,
   since,
+  stopwatch,
   time,
   todo,
   weather,

@@ -35,6 +35,53 @@ test.describe("Widgets", () => {
     await expect(count).toHaveText("1");
   });
 
+  test("adds a stopwatch widget and starts, stops and resets it", async ({
+    page,
+  }) => {
+    await addWidget(page, "widget/stopwatch");
+    await closeSettings(page);
+
+    const stopwatch = page.locator(".Stopwatch");
+    const elapsed = stopwatch.locator(".elapsed");
+    await expect(elapsed).toHaveText("00:00:00");
+
+    await stopwatch.locator('button[title="Start"]').click();
+    await expect(elapsed).not.toHaveText("00:00:00", { timeout: 3000 });
+
+    await stopwatch.locator('button[title="Stop"]').click();
+    const stopped = await elapsed.textContent();
+    await page.waitForTimeout(1500);
+    await expect(elapsed).toHaveText(stopped ?? "");
+
+    await stopwatch.locator('button[title="Reset"]').click();
+    await expect(elapsed).toHaveText("00:00:00");
+  });
+
+  test("calculator computes results and records history", async ({ page }) => {
+    await addWidget(page, "widget/calculator");
+    await closeSettings(page);
+
+    const calculator = page.locator(".Calculator");
+    const key = (label: string) =>
+      calculator.locator(".keys button", { hasText: label }).first();
+
+    await key("7").click();
+    await key("×").click();
+    await key("6").click();
+    await key("=").click();
+    await expect(calculator.locator(".display")).toHaveText("42");
+    await expect(calculator.locator(".history .entry")).toHaveText([
+      "7 × 6 = 42",
+    ]);
+
+    // Keyboard input works while focused
+    await calculator.focus();
+    await page.keyboard.type("9/3");
+    await page.keyboard.press("Enter");
+    await expect(calculator.locator(".display")).toHaveText("3");
+    await expect(calculator.locator(".history .entry")).toHaveCount(2);
+  });
+
   test("removes a widget from settings", async ({ page }) => {
     await addWidget(page, "widget/tallyCounter");
     const fieldset = widgetSettingsFieldset(page, "Tally Counter");
